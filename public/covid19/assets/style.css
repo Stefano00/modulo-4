@@ -1,0 +1,20 @@
+.text-align-center{
+    text-align: center;
+}
+
+.button-large{
+    width: 80%;
+}
+
+.fondo{
+    background-color: #292935;
+}
+
+.white{
+    color: white;
+}
+
+a,h1,th,td,h5{
+    color: white;
+}
+
