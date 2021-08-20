@@ -9,6 +9,7 @@ $('#js-form').submit(async (event) => {
         //oculatr form  mostrar button
         $('#menu').hide();
         $('#menu-2').show();
+        insertPhotos(posts);
     }
 });
 
@@ -16,6 +17,15 @@ $('#js-morePhotos').click( async () => {
     console.log("Estoy en el button");
     morePhotos();
 });
+
+const insertPhotos = (data) => {
+    const divPhotos = document.getElementById("photos");
+    HTML = "";
+    data.forEach((resp, index)=>{
+        HTML += `<img src="${resp.download_url}" height="150" width="150" alt="photo${index}">`
+    })
+    divPhotos.innerHTML = HTML;
+}
 
 const postData = async (email, password) => {
     try {
