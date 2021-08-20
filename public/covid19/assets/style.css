@@ -14,7 +14,16 @@
     color: white;
 }
 
-a,h1,th,td,h5{
+a,h1,h3, h4, h5, h6, label,th,td{
     color: white;
+}
+
+.filtrosTitle{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#logout, #login, #home{
+    cursor: pointer;
 }
 

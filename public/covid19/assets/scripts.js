@@ -57,16 +57,16 @@ const getModal = async (jwt, country) => {
                 }
             })
         const { data } = await response.json();
-      
+
         return data
     } catch (err) {
         console.error(`Error: ${err}`)
     }
 }
 
-$('#cantConf').change(function(e) {
-   localStorage.setItem("cantConf", e.target.value);
-   init();
+$('#cantConf').change(function (e) {
+    localStorage.setItem("cantConf", e.target.value);
+    init();
 });
 
 
@@ -113,8 +113,8 @@ const graph = (data, cant) => {
         dataNumberDeaths.push(dataNumberDeaths[i]);
         $(`#n-${i + 1}`).append(`<p>${columns[i]}</p>`);
     }
-   
-    if(myChart){
+
+    if (myChart) {
         myChart.destroy();
     }
     Chart.defaults.color = "#ffffff";
@@ -169,7 +169,7 @@ const graph = (data, cant) => {
                 ],
                 borderWidth: 1
             }
-        ]
+            ]
         },
         options: {
             scales: {
@@ -181,9 +181,9 @@ const graph = (data, cant) => {
     });
 }
 
-$(".filterCant").click((e)=>{
-   localStorage.setItem("cant", +e.target.innerText);
-   init(+e.target.innerText);
+$(".filterCant").click((e) => {
+    localStorage.setItem("cant", +e.target.innerText);
+    init(+e.target.innerText);
 });
 
 const createTable = (data) => {
@@ -201,17 +201,17 @@ const createTable = (data) => {
     table.innerHTML = HTML;
 }
 
-const init = async () => {
+const init = async (jwt) => {
     cant = localStorage.getItem("cant");
     cantConf = localStorage.getItem("cantConf");
-    if(cant == undefined){
+    if (cant == undefined) {
         cant = 10;
     }
-    if(cantConf == undefined){
+    if (cantConf == undefined) {
         cantConf = 100000;
     }
     $('.loading-1').hide();
-    const jwt = localStorage.getItem('jwt-token');
+    //   const jwt = localStorage.getItem('jwt-token');
     const data = await getData();
     const filterData = filter(data, cantConf);
     if (Object(filterData) != undefined) {
@@ -226,7 +226,7 @@ const init = async () => {
 
 const graphCountry = async (name) => {
     $("canvas#myChartCountry").remove();
-    $("div.myChartCountry").append('<canvas id="myChartCountry" class="animated fadeIn" height="150"></canvas>');
+    $("div.myChartCountry").append('<canvas id="myChartCountry" class="animate__animated animate__fadeIn" height="150"></canvas>');
     const jwt = localStorage.getItem('jwt-token');
     const data = await getModal(jwt, name);
     if (data.deaths == undefined) {
@@ -234,7 +234,7 @@ const graphCountry = async (name) => {
             icon: 'error',
             title: 'Oops...',
             text: 'No existen datos!'
-           // footer: '<a href="">Why do I have this issue?</a>'
+            // footer: '<a href="">Why do I have this issue?</a>'
         })
         $("#exampleModal").modal("hide");
     } else {
@@ -243,13 +243,13 @@ const graphCountry = async (name) => {
         const dataNumber = [];
 
         for (d in data) {
-            if (d != 'location' || d!= 'recovered' || d!='active') {
+            if (d != 'location' || d != 'recovered' || d != 'active') {
                 columnsName.push(d);
             }
         }
         dataNumber.push(data.confirmed);
         dataNumber.push(data.deaths);
-        
+
         var ctx = document.getElementById('myChartCountry').getContext('2d');
 
         var myChartCountry = new Chart(ctx, {
@@ -279,5 +279,40 @@ const graphCountry = async (name) => {
     }
 }
 
+$('#logout').click(() => {
+    const jwt = localStorage.getItem('jwt-token');
+    if (!(jwt === null || jwt === undefined || jwt === "")) {
+        Swal.fire({
+            title: '¿Desea cerrar sesión?',
+            showDenyButton: true,
+            confirmButtonText: `Cerrar sesión`,
+            denyButtonText: `Cancelar`,
+          }).then((result) => {
+            
+            if (result.isConfirmed) {
+                localStorage.setItem('jwt-token', "");
+                window.location.replace('http://localhost:3000/covid19/login.html');
+            }
+        })
+        
+    } else {
+        window.location.replace('http://localhost:3000/covid19/login.html');
+    }
 
-$(init());
+});
+
+const sesion = () => {
+
+    const jwt = localStorage.getItem('jwt-token');
+    if (jwt === null || jwt === undefined || jwt === "") {
+        window.location.replace('http://localhost:3000/covid19/login.html');
+    } else {
+        $('.login').hide();
+        $('.logout').show();
+        return jwt
+    }
+
+}
+
+
+$(init(sesion()));

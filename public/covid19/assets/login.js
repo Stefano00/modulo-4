@@ -1,13 +1,24 @@
 
 $('#js-form').submit(async (event) => {
+    $('.login').show();
+    $('.logout').hide();
     event.preventDefault();
     const email = document.getElementById('js-input-email').value;
     const password = document.getElementById('js-input-password').value;
     const JWT = await postData(email, password);
-    if(JWT != null){
-        console.log(JWT);
+    if (JWT != null) {
         window.location.replace('http://localhost:3000/covid19/index.html');
     }
+});
+
+$('#home').click(() => {
+    console.log("hola");
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Inicie sesión por favor'
+    })
+
 });
 
 const postData = async (email, password) => {
