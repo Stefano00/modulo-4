@@ -10,7 +10,7 @@
     "jsonwebtoken": "8.5.1"
   },
   "devDependencies": {
-    "nodemon": "2.0.4"
+    "nodemon": "^2.0.4"
   },
   "scripts": {
     "watch": "nodemon index.js --port=3000"

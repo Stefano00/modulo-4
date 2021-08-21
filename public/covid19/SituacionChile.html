@@ -25,11 +25,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link animate__animated animate__fadeIn" id="home">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link animate__animated animate__fadeIn" id="home">Home</a>
         </li>
-        <li>
-          <a class="nav-link animate__animated animate__fadeIn" id="situacionChile">Situación Chile</a>
+        <li class="nav-item active">
+          <a class="nav-link animate__animated animate__fadeIn" id="situacionChile">Situación Chile <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link login animate__animated animate__fadeIn" id="login">Iniciar Sesión</a>
@@ -42,32 +42,9 @@
   <div class="container animate__animated animate__fadeIn">
     <div class="row">
       <h1 class="col-12 text-align-center">
-        Paises con Covid19
+        Paises con Covid19 en Chile
       </h1>
-      <h5 class="filtrosTitle">Filtros</h5>
-      <div class="container mb-5">
-        <div class="row">
-          <div class="dropdown col-4">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Cantidad paises
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item filterCant" id="fb1">10</button>
-              <button class="dropdown-item filterCant" id="fb2">20</button>
-              <button class="dropdown-item filterCant" id="fb3">30</button>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="container-fluid">
-              <div class="row">
-                <h6 class="col-3">Cantidad de recuperados</h6>
-                <input class="col-9" type="number" placeholder="Ingrese filtro por cantidad de confirmados" id="cantConf" name="cantConf">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div class="col-12 text-align-center">
         <div class="spinner-border loading white" role="status">
           <span class="sr-only loading white">Loading...</span>
@@ -75,40 +52,12 @@
       </div>
       <div class="col-12 text-align-center animate__animated animate__fadeIn">
         <canvas class="animate__animated animate__fadeIn" id="myChart"></canvas>
-
-        <table class="table loading-1 animate__animated animate__fadeIn">
-          <thead class="thead-dark loading-1">
-            <tr>
-              <th scope="col">Location</th>
-              <th scope="col">Confirmed</th>
-              <th scope="col">Deaths</th>
-              <th scope="col">Graph</th>
-            </tr>
-          </thead>
-          <tbody id="table">
-          </tbody>
-        </table>
-
       </div>
 
     </div>
   </div>
 
-  <div class="modal animate__animated animate__fadeIn" tabindex="-1" id="exampleModal">
-    <div class="modal-dialog">
-      <div class="modal-content fondo">
-        <div class="modal-header">
-          <h5 class="modal-title">Gráfico por país</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body myChartCountry">
-          <canvas id="myChartCountry"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -119,7 +68,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="./assets/scripts.js"></script>
+  <script src="./assets/scriptsChile.js"></script>
 
 
 </body>

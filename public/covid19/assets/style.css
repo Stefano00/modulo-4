@@ -23,7 +23,7 @@ a,h1,h3, h4, h5, h6, label,th,td{
     padding-left: 15px;
 }
 
-#logout, #login, #home{
+#logout, #login, #home, #situacionChile{
     cursor: pointer;
 }
 
