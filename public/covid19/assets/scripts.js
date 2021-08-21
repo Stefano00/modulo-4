@@ -15,6 +15,44 @@ const login = async (email, password) => {
     }
 }
 
+
+
+$('#login').click(async ()=>{
+    const { value: formValues } = await Swal.fire({
+        title: 'Login',
+        html:
+          '<input id="swal-input1" class="swal2-input">' +
+          '<input id="swal-input2" class="swal2-input" type="password">',
+        focusConfirm: false,
+        preConfirm: () => {
+          return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+          ]
+        }
+      })
+      /*
+      if (formValues) {
+        Swal.fire(JSON.stringify(formValues))
+      }*/
+      console.log(formValues);
+      const jwt = login(formValues[0], formValues[1]);
+      if(jwt != null){
+        Swal.fire('Login Success!', '', 'success')
+        $('#login').hide();
+        $('#logout').show();
+
+      }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error in login!',
+          })
+      }
+});
+
+
+
 const getData = async () => {
     try {
         const response = await fetch('http://localhost:3000/api/total',
@@ -92,14 +130,12 @@ const graph = (data, cant) => {
         if (a.confirmed > b.confirmed) {
             return -1;
         }
-        // a must be equal to b
         return 0;
     });
     data.forEach((d) => {
         columns.push(d.location);
         dataNumber.push(d.confirmed);
         dataNumberDea.push(d.deaths);
-        // dataNumberAct.push(d.active);
     })
 
     const columnsName = [];
@@ -122,14 +158,10 @@ const graph = (data, cant) => {
     myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             labels: columnsName,
             datasets: [{
                 label: '# Recovered',
-                // data: [12, 19, 3, 5, 2, 3],
                 data: dataNumberRecovered,
-                // data: dataNumberActive,
-                // data: dataNumberDeaths,
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -211,7 +243,6 @@ const init = async (jwt) => {
         cantConf = 100000;
     }
     $('.loading-1').hide();
-    //   const jwt = localStorage.getItem('jwt-token');
     const data = await getData();
     const filterData = filter(data, cantConf);
     if (Object(filterData) != undefined) {
@@ -234,7 +265,6 @@ const graphCountry = async (name) => {
             icon: 'error',
             title: 'Oops...',
             text: 'No existen datos!'
-            // footer: '<a href="">Why do I have this issue?</a>'
         })
         $("#exampleModal").modal("hide");
     } else {
@@ -290,22 +320,45 @@ $('#logout').click(() => {
           }).then((result) => {
             
             if (result.isConfirmed) {
-                localStorage.setItem('jwt-token', "");
-                window.location.replace('http://localhost:3000/covid19/login.html');
+                Swal.fire('Logout Success!', '', 'success')
+                localStorage.clear();
+                console.log(localStorage.getItem('jwt-token'));
+                $('.login').show();
+                $('.logout').hide();
+               // window.location.replace('http://localhost:3000/covid19/login.html');
             }
         })
         
     } else {
-        window.location.replace('http://localhost:3000/covid19/login.html');
+        //window.location.replace('http://localhost:3000/covid19/login.html');
     }
 
+});
+
+$('#situacionChile').click(() => {
+    const jwt = localStorage.getItem('jwt-token');
+    if (jwt === null || jwt === undefined || jwt === "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Inicie sesión por favor'
+        })
+      } else {
+          $('.login').hide();
+          $('.logout').show();
+          window.location.replace('http://localhost:3000/covid19/SituacionChile.html');
+          return jwt
+      }
 });
 
 const sesion = () => {
 
     const jwt = localStorage.getItem('jwt-token');
     if (jwt === null || jwt === undefined || jwt === "") {
-        window.location.replace('http://localhost:3000/covid19/login.html');
+      //  window.location.replace('http://localhost:3000/covid19/login.html');
+        $('.login').show();
+        $('.logout').hide();
+        $('.situacionChile').hide();
     } else {
         $('.login').hide();
         $('.logout').show();
