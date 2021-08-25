@@ -1,4 +1,5 @@
 var page = 0;
+$('#logout').hide();
 
 $('#js-form').submit(async (event) => {
     event.preventDefault()
@@ -12,6 +13,7 @@ $('#js-form').submit(async (event) => {
         //oculatr form  mostrar button
         $('#menu').hide();
         $('#menu-2').show();
+        $('#logout').show();
         insertPhotos(posts);
     }
 });
@@ -19,6 +21,13 @@ $('#js-form').submit(async (event) => {
 $('#js-morePhotos').click( async () => {
     console.log("Estoy en el button");
     morePhotos();
+});
+
+$('#logout').click(()=>{
+    $('#menu').show();
+    $('#menu-2').hide();
+    $('#logout').hide();
+    localStorage.clear();
 });
 
 const insertPhotos = (data) => {
@@ -78,6 +87,8 @@ const morePhotos = async () => {
         })
         const { data } = await response.json()
         console.log(data);
+        insertPhotos(data);
+
         return data
         
     }catch(err) {
