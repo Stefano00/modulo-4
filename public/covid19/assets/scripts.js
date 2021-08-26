@@ -17,16 +17,15 @@ const login = async (email, password) => {
 $("#login").click(async () => {
   const { value: formValues } = await Swal.fire({
     title: "Login",
-    html: '<input id="swal-input1" class="swal2-input">' + '<input id="swal-input2" class="swal2-input" type="password">',
+    html: '<input id="swal-input1" class="swal2-input" placeholder="Username">' 
+    + '<input id="swal-input2" class="swal2-input" placeholder="Password" type="password">',
     focusConfirm: false,
     preConfirm: () => {
       return [document.getElementById("swal-input1").value, document.getElementById("swal-input2").value];
     },
   });
-  /*
-      if (formValues) {
-        Swal.fire(JSON.stringify(formValues))
-      }*/
+ 
+
   console.log(formValues);
   const jwt = await login(formValues[0], formValues[1]);
 
@@ -34,6 +33,7 @@ $("#login").click(async () => {
     Swal.fire("Login Success!", "", "success");
     $("#login").hide();
     $("#logout").show();
+    $("#situacionChile").show();
   } else {
     Swal.fire({
       icon: "error",
@@ -192,6 +192,14 @@ const createTable = (data) => {
 };
 
 const init = async (jwt) => {
+  if(jwt != null && jwt != "" && jwt != undefined){
+
+    $("#situacionChile").show();
+  }else{
+    
+    $("#situacionChile").hide();
+  }
+
   cant = localStorage.getItem("cant");
   cantConf = localStorage.getItem("cantConf");
   if (cant == undefined) {
@@ -201,6 +209,7 @@ const init = async (jwt) => {
     cantConf = 100000;
   }
   $(".loading-1").hide();
+  
   const data = await getData();
   const filterData = filter(data, cantConf);
   if (Object(filterData) != undefined) {
@@ -278,6 +287,7 @@ $("#logout").click(() => {
         console.log(localStorage.getItem("jwt-token"));
         $(".login").show();
         $(".logout").hide();
+        $("#situacionChile").hide();
         // window.location.replace('http://localhost:3000/covid19/login.html');
       }
     });
