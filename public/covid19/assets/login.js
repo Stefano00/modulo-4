@@ -13,11 +13,7 @@ $('#js-form').submit(async (event) => {
 
 $('#home').click(() => {
     console.log("hola");
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Inicie sesión por favor'
-    })
+    window.location.replace('http://localhost:3000/covid19/index.html');
 
 });
 
