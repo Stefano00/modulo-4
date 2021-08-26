@@ -1,29 +1,40 @@
-.text-align-center{
-    text-align: center;
+.text-align-center {
+  text-align: center;
 }
 
-.button-large{
-    width: 80%;
+.button-large {
+  width: 80%;
 }
 
-.fondo{
-    background-color: #292935;
+.fondo {
+  background-color: #292935;
 }
 
-.white{
-    color: white;
+.white {
+  color: white;
 }
 
-a,h1,h3, h4, h5, h6, label,th,td{
-    color: white;
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+th,
+td {
+  color: white;
 }
 
-.filtrosTitle{
-    padding-right: 15px;
-    padding-left: 15px;
+.filtrosTitle {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-#logout, #login, #home, #situacionChile{
-    cursor: pointer;
+#logout,
+#login,
+#home,
+#situacionChile {
+  cursor: pointer;
 }
-
